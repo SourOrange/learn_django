@@ -20,4 +20,31 @@ parameter:runserver,再重新 debug-run 就行了。
 
 路由系统-urls, 包括1，还记得我们说过吧，总裁部门，里面都是秘书，秘书吧，负责一些文案，负责开会时间吧，就是一些很简单的议事会程。想想，我们要新开一个部门，比如说创建一个app,那意思是 一个负责业务或者一类具体业务的模块 的部门吧，就是要来干事的，所以我们输入命令 python manage.py startapp teacher,比如我们创建一个讲师团队，对，就是负责讲课的，这就是一个具体的业务。（提示：会多了一个 teacher 文件夹）,2，路由，按照具体的请求url，导入到一个相对应的业务处理模块的一个功能模块吧，打个比方，你去腾讯这个公司招人，门卫，绝对会问你要找谁吧，你说找工程部的老王，那就指定到某个房间去了，对不。
 
+---lawan处理这个 urls 的 函数吧，可以理解吧，就是在总裁办公室里的 urls.py ，这个文件中的 urlpattern=[url(r'normalmap/', do_normalmap)],
+好了，我们写了具体的路由，相当于去哪里找谁的一个地址，并且由 do_normalmap 来接待你，不过别忘记了，在你去写 do_normalmap 之前，这里必须导入那个办公室的电话号码先啊，毕竟你没有拨通，怎么保持通话先，是吧，所以我们 在 urls.py 下面写 from teacher import views as tv, 之前用 tv 是因为别和 django里面的原来的文档名字引起冲突，既然引入电话了，那么 urlpattern 里面的 url,也必须相应改为 tv.do_normalmap.
+----
+
+
 话说，好像还没说过究竟用 django，用来做的是那些方面吧？昨晚听课程后，仔细想想，如果js是管理前端的，那么django则是后端的，处理业务逻辑的。
+---
+接着在你创建 一个具体业务后，这个业务肯定有内容吧，别人肯定要访问你的，而内容就是 views.py, 那么别人就是通过 总裁部门里面的 urls 找到你的，至于你的具体地址，也就是哪一层楼哪一房间号，就是具体的网址 （比如 xx.com/sourorange/) 这个 sourorange 就是你的网址，那么人家进来你的网址，你要有东西给人家看吧，于是你就在业务块 也就是 views.py 里面写一些类似欢迎游客来你办公室的信息 ，在 views 里面 写 (from django.http import HttpResponse), 没错，需要写这么一句。接着，写一个函数，这个函数接受一个类型为 HttpRequest 的参数 ：
+def do_normalmap(request):
+  打印一句话，目的是在调用的时候，看命令行有没有执行这个函数
+  print('you are in .. position')
+  然后，这句话是肯定要写的，毕竟要返回东西给人家看看
+  return HttpResponse('This is normalmap')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
