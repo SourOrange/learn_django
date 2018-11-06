@@ -34,7 +34,11 @@ def do_normalmap(request):
   然后，这句话是肯定要写的，毕竟要返回东西给人家看看
   return HttpResponse('This is normalmap')
 
-
+---好了，上面是我们学习的第一个路由，其实相当于，你打开github网站，返回一个页面给你，只不过我们暂时是返回一句话而已，内容不一样，但是大纲是一样的。接着再写一个路由，如果说上面那个路由是1.0版本，那么现在要写一个2.0版本，类似 （.../.../...） , 不难的，只是添加了参数而已，比如我们要在 urls.py 中，再写一个路由，就写 ulr(r'^withparam/?P<year>[0-9]{4}/?P<month>[0-9]{1,2}', tv.withparam) , 那么在views中，我们就应该写 withparam 函数了吧，所以写上:
+  def withparam(request, year, month):
+    return HttpResponse('This is with param {0}, {1}'.format(year, month))
+  
+ 对，我们第二个带有参数的 路由，就是这样滴，然后再去网页输入 127.0.0.1:8000/withparam/2018/11 ,这样就可以返回信息了。
 
 
 
