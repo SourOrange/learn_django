@@ -65,7 +65,12 @@ def jiangshi(request):
 '''
 - 上述例子，会得到两个参数 ，但是 ?: 表示忽略此参数。
 
-
+## 传递额外参数
+- 参数不仅来自于URL，还可能是我们自己定义的内容
+  '''
+    url(r'extrem/$', tv.extremParam, {'name':'xiaoming'}),
+  '''
+- 附加参数同样适用于 include 语句，此时对 include 内所有都添加
 
 
 
