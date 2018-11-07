@@ -69,13 +69,20 @@ def jiangshi(request):
 def nestparam(request, page_number):
   return HttpResponse('Page number is {0}'.format(page_number))
 </pre>
+- 现在去网址输入 127.0.0.1:8000/book/page-10 试试看吧，这里的数字，你可以随便写
+
 ## 传递额外参数
 - 参数不仅来自于URL，还可能是我们自己定义的内容
   '''
     url(r'extrem/$', tv.extremParam, {'name':'xiaoming'}),
   '''
 - 附加参数同样适用于 include 语句，此时对 include 内所有都添加
-
+- 具体的实现是，在主路由中的 <strong>urlspattern</strong> 中添加一句： url(r'^yourname/$', tv.extremParam, {'name': 'xiaoming'}), 这句话的意思是 传递了一个参数为 name , 值为 xiaoming 的数据到网址中，接着在 views 文件中编写 函数 extremParam:
+<pre>
+def extremParam(request, name):
+  return HttpResponse('This guy called {0}'.format(name))
+</pre>
+- 输入 127.0.0.1:8000/yourname/，就可以看到效果了
 
 
 
