@@ -68,7 +68,7 @@ def jiangshi(request):
 <pre>
 def nestparam(request, page_number):
   return HttpResponse('Page number is {0}'.format(page_number))
-
+</pre>
 ## 传递额外参数
 - 参数不仅来自于URL，还可能是我们自己定义的内容
   '''
