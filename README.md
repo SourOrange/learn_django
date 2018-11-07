@@ -64,6 +64,10 @@ def jiangshi(request):
   url(r'index_2/?:page-(?P<page_number>\d+)/)?$', tv.myindex_2) # good
 '''
 - 上述例子，会得到两个参数 ，但是 ?: 表示忽略此参数。
+- 具体的实现是，在主路由中的<strong>urlspattern</strong>中编写一句： url(r'^book/(?:page-(?P<page_number>\d+)/)?$', tv.nestparam),注意一下，这里的 page_number ，是一个参数，应该和函数里面的那个参数保持一样， 然后再 视图文件 views 中，写一个 nestparam 函数
+<pre>
+def nestparam(request, page_number):
+  return HttpResponse('Page number is {0}'.format(page_number))
 
 ## 传递额外参数
 - 参数不仅来自于URL，还可能是我们自己定义的内容
