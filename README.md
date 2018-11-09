@@ -84,6 +84,18 @@ def extremParam(request, name):
 </pre>
 - 输入 127.0.0.1:8000/yourname/，就可以看到效果了
 
+## URl 的反向解析
+- 防止硬编码 （也就是 用一个变量去赋值，而不是重复用某一个值，因为直接修改变量更简单）
+- 本质上是对 每一个 URL 进行命名 （url(r'.....',tv...., name='somevalue'), 这里的 变量 name 的值 就是该 URL 的 名字）
+- 具体写法：在 主办公室 urls.py 中继续添加一句，url(r'^iknowyourname/$', tv.revParse, name="askname"), 然后在  teacher 应用里的 views.py 视图文件中，首先，我们要写一句来引入反向解析这个函数，from django.core.urlresolvers import reverse ,（注意了，该reverse 函数，接受的是一个值），接着写一个函数：
+<pre>
+def revParse(request):
+  return HttpResponse('Your requested URL is {o}'.format(reverse('askname')))
+</pre> 
+- 好了，去网址试试 127.0.0.1:8000/iknowyourname , 看完结果后，再把网页改成 knowyourname, 试试，有意思吧
+
+
+
 
 
 
