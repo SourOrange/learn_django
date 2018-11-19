@@ -95,6 +95,11 @@ def revParse(request):
 - 好了，去网址试试 127.0.0.1:8000/iknowyourname , 看完结果后，再把网页改成 knowyourname, 试试，有意思吧,<strong>注意，必须在视图函数中修改url()中的网址为 url(r'knowyourname/$', ..., ...), 才可以在网页中调试网址。
 
 
+## views 视图，即 视图函数
+- 接收 web 请求，然后返回 web 响应的事物处理函数
+- 具体的写法，和之前介绍的路由 是一样的，大概就 三步，第一，在主路由中写 url(r'...', tv.hanshuming), 第二，在视图函数中views.py 中，写对应的函数名称，并且记得导入一个 HttpResponse
+- 其他简单视图， django.http 给我们提供了很多类和 HttpResponse类似的简单视图，你可以通过 <kbd>ctrl + 鼠标左键</kbd>点击在视图函数中的 http,(就在你导入的那一行命令中)，通常多数是 return 就能解决了，不过有一个例外就是 <strong>Http404</strong> 为 Exception 子类，需要 raise 使用, 并且你还需要再导入 HttpResponse 后面再加上 Http404, 整个句子应该是 from django.http import HttpResponse, Http404
+
 
 
 
