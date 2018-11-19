@@ -92,7 +92,7 @@ def extremParam(request, name):
 def revParse(request):
   return HttpResponse('Your requested URL is {o}'.format(reverse('askname')))
 </pre> 
-- 好了，去网址试试 127.0.0.1:8000/iknowyourname , 看完结果后，再把网页改成 knowyourname, 试试，有意思吧
+- 好了，去网址试试 127.0.0.1:8000/iknowyourname , 看完结果后，再把网页改成 knowyourname, 试试，有意思吧,<strong>注意，必须在视图函数中修改url()中的网址为 url(r'knowyourname/$', ..., ...), 才可以在网页中调试网址。
 
 
 
