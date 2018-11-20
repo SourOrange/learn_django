@@ -105,7 +105,21 @@ def revParse(request):
 </pre>
 这样，当你打开网页后，会出现一个有调试信息的404错误，当你去settings 中设置 DEBUG = False 和 ALLOWED_HOST =【'#'】, 请注意，这里里面的 井号必须改为 星号，不知道为什么填入 星号 会出现斜体，当你设置了这两个地方后，再重新去 127.0.0.1:8000/exception 后，会发现是一个标准的 404 页面。
 
-
-
-
+## 重定向 redirect
+- 这里说的重定向, 其实很简单，一个概念，网页中我们会遇到这样的情况，这个做个假设，有一个网址叫做 baidu.com, 我们一直登录这个网址来查询一些事情，有一天， baidu.com 改了网址，改为 baibai.com, 并且该网址肯定不想失去我们的访问啊，毕竟访问这个网址，他人气高，所以他会叫工程师吧，把原来的网址重新定到另一个方向，就是 baibai.com。当我们访问 baidu.com 的时候，页面会自动显示为 baibai.com, 明白不！！！
+很简单的，好好想想就明白，浏览网页的时候，就有这种情况发生的。
+接着我们来尝试实现这个想法，继续 导入，在视图函数中 views.py, 导入 from django.http import HttpResponse,HttpResponseRedirect, 嗯，然后再写一个函数，当然了，你要是熟练了前面我们的内容，就是 写路由，写视图，暂且就两个步骤，很简单，哪个先写都可以，就是要对应起来。
+<pre>
+def baidu(request):
+    return HttpResponseRedirect('/baibai') 
+    # 也可以用一个 reverse ，后期建议使用 reverse
+    
+def baidu_2(request):
+    return HttpResponseRedirect(reverse('bai'))
+    
+def baibai(request):
+    return HttpResponse('你好，这里是重定向后的页面')
+</pre>
+然后再 urls.py 中写三个url， url(r'^baidu', tv.baidu), url(r'^baidu_2', tv.baidu_2), url(r'^baibai', tv.baibai, name='bai').
+现在你再去网址中输入 主机:8000/baidu, 会跳转到 /baibai, 再重新用 主机:8000/baidu_2 试试，也是跳到 baibai,建议后期尽量使用reverse,反向解析。
 
