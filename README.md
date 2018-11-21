@@ -123,3 +123,20 @@ def baibai(request):
 然后再 urls.py 中写三个url， url(r'^baidu', tv.baidu), url(r'^baidu_2', tv.baidu_2), url(r'^baibai', tv.baibai, name='bai').
 现在你再去网址中输入 主机:8000/baidu, 会跳转到 /baibai, 再重新用 主机:8000/baidu_2 试试，也是跳到 baibai,建议后期尽量使用reverse,反向解析。
 
+
+---------------------
+接着， request 中的 GET，和 POST，通常这两个用的最多，也是比较常见的，
+例如 网页是  ....com/?key1=value1&key2=value2 , 这是网页中 get 的例子，问号表示后面的是键值参数。在 views 中写一个视图函数来试试看吧。
+<pre>
+def method_get(request):
+    # result 为将要返回的网址中的参数的内容
+    result = ""
+    # 键值在 get 方法中
+    for k, v in request.GET.items():
+      result += k + '-->' + v
+      result += ","
+    return HttpResponse('The request of get method result is {0}'.format(result))
+</pre>
+再去 urls 中写路由， url(r'method_get', tv.method_get), 主机:8000/method_get/?name=SourOrange&subject=Python, 如果还有其他键值对，你可以继续写下去，然后回车可以看到结果。
+    
+        
