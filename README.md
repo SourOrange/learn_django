@@ -137,6 +137,29 @@ def method_get(request):
       result += ","
     return HttpResponse('The request of get method result is {0}'.format(result))
 </pre>
+
 再去 urls 中写路由， url(r'method_get', tv.method_get), 主机:8000/method_get/?name=SourOrange&subject=Python, 如果还有其他键值对，你可以继续写下去，然后回车可以看到结果。
+
+'说完get属性，再来说说 post 属性，post 属性不会再网址中暴露键值信息，嗯，这个是最特别的。基本上是这么来的，你发一个请求过来，我给你一个页面，你提交了信息后，我再跳转到一个页面，这么说，基本上 post 就是4个步骤了。实现的具体方法分为以为：1.编写路由 url(r'get_2', tv.method_get2),2，编写视图函数，3，编写一个页面，内容要有客户的信息，所以有一个提交按钮，提交按钮跳到指定的页面，4.编写提交后的页面，由于是练习，提交后的页面我们先返回一条信息就好。url(r'post_1', tv.method_post) 。
+<pre>
+def method_get2(request):
+    # 这里会返回一个页面，有提交按钮
+    # 需要提醒一下，虽然是跳到某个页面，但是前提依旧需要再这个函数下返回一个页面
+    # 而不是直接 平白无故地就转到哪个页面哦
     
+    return render_to_response('for_post.html')
+</pre>
+
+虽然，我们写了一个 for_post.html，不过，我们在哪里写啊，所以你要现在项目下建立一个 templates 文件夹，该文件夹和 teacher 文件夹是处于平行关系的，然后再 templates 下面建立一个 for_post.html ，其中包括表单内容，另外 <form action='/post_1' method='post'> 中的 action 是对应的网址，表单中可以包括姓名密码爱好等等一些内容，因为是练习，所以你不需要写很多东西进去。你还需要去写一个 url(r'post_1', tv.method_post) ，编写 method_post 视图函数。
+<pre>
+def method_post(request):
+    result = ""
+    # 注意，k,  代表了 html中的 form 中 input 标签的 name 属性
+    # 而 v, 则是 用户输入后的信息，比如用户姓名填入 小明，则v 就是 小明
+    for k, v in request.POST.items():
+        result += k + '-->' + v
+        result += ' ,'
+    return HttpResponse("Get value of post is {0}".format(result))
+</pre>
+到这里，就写完了post属性了，不过你现在去网页尝试的话，在提交表单后，会出现 csrf 的提示信息，总之就是无法正常跳转到 另外一个页面，所以你返回去 settings 文件中，有个叫做 MIDDLEWARE_CLASSES 中的组，也许是第三行，反正有写 csrf 的就把给注释掉先，接着回去继续测试，你会发现可以了。
         
