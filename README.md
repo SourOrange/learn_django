@@ -162,4 +162,17 @@ def method_post(request):
     return HttpResponse("Get value of post is {0}".format(result))
 </pre>
 到这里，就写完了post属性了，不过你现在去网页尝试的话，在提交表单后，会出现 csrf 的提示信息，总之就是无法正常跳转到 另外一个页面，所以你返回去 settings 文件中，有个叫做 MIDDLEWARE_CLASSES 中的组，也许是第三行，反正有写 csrf 的就把给注释掉先，接着回去继续测试，你会发现可以了。
+  
+。。实际上,render_to_response('xx.html') 可以换做 render(request, 'xx.html'),并且如果你在 html 里面设置了一个变量,比如，简单的一句问候，
+<pre>
+<h1>Hello my little {{ name }}</h1>
+</pre>
+嗯，很明显，这是一个变量，但是具体来说，其实是一个字典中的键。显然我们要实现的话，需要再 render函数中添加一个对应的字典，很简单。实现方法是
+<pre>
+def render_test(request):
+  d = dict()
+  d['name'] = 'lover'
+  return render(request, 'xx.html', context=d)
+</pre>
+当然实现完这个函数后，记得去写对应的路由，然后再打开网址试试看就行了。
         
